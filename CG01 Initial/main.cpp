@@ -36,7 +36,10 @@ int width = 800.0;
 int height = 600.0;
 GLuint loc1;
 GLuint loc2;
-float animationFactor, cameraAnimationFactor = 0.0;
+double animationFactor, flipAnimationFactor, translateAnimX, translateAnimY = 0.0;
+GLfloat rotatez = 0.0f;
+bool animToggle = true;
+
 
 // Shader Functions- click on + to expand
 #pragma region SHADER_FUNCTIONS
@@ -156,6 +159,26 @@ mat4 ortho(float left, float right, float bottom, float top, float nearp, float 
 	return m;
 }
 
+void keyPressed(unsigned char key, int x, int y)
+{
+	printf("keyyy"); // Set the state of the current key to pressed
+	if (key == 'a') {
+		translateAnimX -= 0.5;
+	}
+
+	if (key == 'd') {
+		translateAnimX += 0.5;
+	}
+
+	if (key == 's') {
+		translateAnimY -= 0.5;
+	}
+
+	if (key == 'w') {
+		translateAnimY += 0.5;
+	}
+}
+
 // VBO Functions - click on + to expand
 #pragma region VBO_FUNCTIONS
 
@@ -194,6 +217,166 @@ void generateObjectBufferTeapot () {
 
 void display(){
 
+	// tell GL to only draw onto a pixel if the shape is closer to the viewer
+	glEnable(GL_DEPTH_TEST); // enable depth-testing
+	glDepthFunc(GL_LESS); // depth-testing interprets a smaller value as "closer"
+	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glUseProgram(shaderProgramID);
+
+	glutKeyboardFunc(keyPressed);
+
+	//Declare your uniform variables that will be used in your shader
+	int matrix_location = glGetUniformLocation(shaderProgramID, "model");
+	int view_mat_location = glGetUniformLocation(shaderProgramID, "view");
+	int proj_mat_location = glGetUniformLocation(shaderProgramID, "proj");
+
+	if (animationFactor >= 360.0)
+		animationFactor = 0;
+	animationFactor += 0.01;
+
+	if (flipAnimationFactor >= 40.0 || flipAnimationFactor < -40.0)
+		animToggle = !animToggle;
+
+		
+	if(animToggle)
+		flipAnimationFactor += 0.01;
+	else
+		flipAnimationFactor -= 0.01;
+	
+	
+
+	// Hierarchy of Teapots
+
+	// Root of the Hierarchy
+	mat4 view = identity_mat4();
+	mat4 persp_proj = perspective(45.0, (float)width / (float)height, 0.1, 180.0);
+	mat4 local1 = identity_mat4();
+	local1 = rotate_y_deg(local1, animationFactor);
+	local1 = translate(local1, vec3(translateAnimX, translateAnimY, -130));
+
+	// for the root, we orient it in global space
+	mat4 global1 = local1;
+	// update uniforms & draw
+	glUniformMatrix4fv(proj_mat_location, 1, GL_FALSE, persp_proj.m);
+	glUniformMatrix4fv(view_mat_location, 1, GL_FALSE, view.m);
+	glUniformMatrix4fv(matrix_location, 1, GL_FALSE, global1.m);
+	glDrawArrays(GL_TRIANGLES, 0, teapot_vertex_count);
+
+	// child of hierarchy
+	mat4 local2 = identity_mat4();
+	local2 = rotate_y_deg(local2, rotatez);
+	// translation is 15 units in the y direction from the parents coordinate system
+	local2 = translate(local2, vec3(0.0, 15.0, 0.0));
+	// global of the child is got by pre-multiplying the local of the child by the global of the parent
+	mat4 global2 = global1 * local2;
+	// update uniform & draw
+	glUniformMatrix4fv(matrix_location, 1, GL_FALSE, global2.m);
+	glDrawArrays(GL_TRIANGLES, 0, teapot_vertex_count);
+
+	// child of hierarchy
+	mat4 local3 = identity_mat4();
+	local3 = rotate_x_deg(local3, flipAnimationFactor);
+	// translation is 15 units in the y direction from the parents coordinate system
+	local3 = translate(local3, vec3(0.0, 15.0, 0.0));
+	// global of the child is got by pre-multiplying the local of the child by the global of the parent
+	mat4 global3 = global2 * local3;
+	// update uniform & draw
+	glUniformMatrix4fv(matrix_location, 1, GL_FALSE, global3.m);
+	glDrawArrays(GL_TRIANGLES, 0, teapot_vertex_count);
+
+
+	//////////////////////////////
+	// LEFT GROUP STARTS
+	//////////////////////////////
+	/*
+	mat4 local1_L = identity_mat4();
+	local1_L = rotate_y_deg(local1_L, 0.0);
+	// translation is 15 units in the y direction from the parents coordinate system
+	local1_L = translate(local1_L, vec3(0.0, 15.0, 0.0));
+	// global of the child is got by pre-multiplying the local of the child by the global of the parent
+	mat4 global1_L = global3 * local1_L;
+	// update uniform & draw
+	glUniformMatrix4fv(matrix_location, 1, GL_FALSE, global1_L.m);
+	glDrawArrays(GL_TRIANGLES, 0, teapot_vertex_count);
+	*/
+	// Root of the Hierarchy
+	
+	mat4 local1_L = identity_mat4();
+	local1_L = rotate_z_deg(local1_L, 55.0f);
+	local1_L = translate(local1_L, vec3(-10.0, 15.0, 0.0));
+
+	// for the root, we orient it in global space
+	mat4 global1_L = global3*local1_L;
+	// update uniforms & draw
+	glUniformMatrix4fv(matrix_location, 1, GL_FALSE, global1_L.m);
+	glDrawArrays(GL_TRIANGLES, 0, teapot_vertex_count);
+	
+	// child of hierarchy
+	mat4 local2_L = identity_mat4();
+	local2_L = rotate_y_deg(local2_L, 6* animationFactor);
+	// translation is 15 units in the y direction from the parents coordinate system
+	local2_L = translate(local2_L, vec3(0.0, 15.0, 0.0));
+	// global of the child is got by pre-multiplying the local of the child by the global of the parent
+	mat4 global2_L = global1_L * local2_L;
+	// update uniform & draw
+	glUniformMatrix4fv(matrix_location, 1, GL_FALSE, global2_L.m);
+	glDrawArrays(GL_TRIANGLES, 0, teapot_vertex_count);
+
+	// child of hierarchy
+	mat4 local3_L = identity_mat4();
+	local3_L = rotate_y_deg(local3_L, rotatez);
+	// translation is 15 units in the y direction from the parents coordinate system
+	local3_L = translate(local3_L, vec3(0.0, 15.0, 0.0));
+	// global of the child is got by pre-multiplying the local of the child by the global of the parent
+	mat4 global3_L = global2_L * local3_L;
+	// update uniform & draw
+	glUniformMatrix4fv(matrix_location, 1, GL_FALSE, global3_L.m);
+	glDrawArrays(GL_TRIANGLES, 0, teapot_vertex_count);
+
+	//////////////////////////////
+	// RIGHT GROUP STARTS
+	//////////////////////////////
+
+	// Root of the Hierarchy
+
+	mat4 local1_R = identity_mat4();
+	local1_R = rotate_z_deg(local1_R, -55.0f);
+	local1_R = translate(local1_R, vec3(10.0, 15.0, 0.0));
+
+	// for the root, we orient it in global space
+	mat4 global1_R = global3 * local1_R;
+	// update uniforms & draw
+	glUniformMatrix4fv(proj_mat_location, 1, GL_FALSE, persp_proj.m);
+	glUniformMatrix4fv(view_mat_location, 1, GL_FALSE, view.m);
+	glUniformMatrix4fv(matrix_location, 1, GL_FALSE, global1_R.m);
+	glDrawArrays(GL_TRIANGLES, 0, teapot_vertex_count);
+
+	// child of hierarchy
+	mat4 local2_R = identity_mat4();
+	local2_R = rotate_y_deg(local2_R, rotatez);
+	// translation is 15 units in the y direction from the parents coordinate system
+	local2_R = translate(local2_R, vec3(0.0, 15.0, 0.0));
+	// global of the child is got by pre-multiplying the local of the child by the global of the parent
+	mat4 global2_R = global1_R * local2_R;
+	// update uniform & draw
+	glUniformMatrix4fv(matrix_location, 1, GL_FALSE, global2_R.m);
+	glDrawArrays(GL_TRIANGLES, 0, teapot_vertex_count);
+
+	// child of hierarchy
+	mat4 local3_R = identity_mat4();
+	local3_R = rotate_y_deg(local3_R, rotatez);
+	// translation is 15 units in the y direction from the parents coordinate system
+	local3_R = translate(local3_R, vec3(0.0, 15.0, 0.0));
+	// global of the child is got by pre-multiplying the local of the child by the global of the parent
+	mat4 global3_R = global2_R * local3_R;
+	// update uniform & draw
+	glUniformMatrix4fv(matrix_location, 1, GL_FALSE, global3_R.m);
+	glDrawArrays(GL_TRIANGLES, 0, teapot_vertex_count);
+	
+	glutSwapBuffers();
+
+	/*
 	// tell GL to only draw onto a pixel if the shape is closer to the viewer
 	glEnable (GL_DEPTH_TEST); // enable depth-testing
 	glDepthFunc (GL_LESS); // depth-testing interprets a smaller value as "closer"
@@ -242,34 +425,9 @@ void display(){
 		
 
 		
-	// top-left
-	 view = translate(identity_mat4(), vec3(0.0, 0.0, -40.0));
-	 persp_proj = perspective(60.0, (float)width / (float)height, 0.1, 100.0);
-	 model = rotate_x_deg(identity_mat4(), 90);
-
-	glViewport(0, height / 2, width / 2, height / 2);
-	glUniformMatrix4fv(proj_mat_location, 1, GL_FALSE, persp_proj.m);
-	glUniformMatrix4fv(view_mat_location, 1, GL_FALSE, view.m);
-	glUniformMatrix4fv(matrix_location, 1, GL_FALSE, model.m);
-	glDrawArrays(GL_TRIANGLES, 0, teapot_vertex_count);
-
-	// top-right
-	 view = translate(identity_mat4(), vec3(0.0, 0.0, -40.0));
-	 //view = look_at(vec3(0.0, 45.0, 50.0), vec3(0.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0));
-	 persp_proj = perspective(45.0, (float)width / (float)height, 0.1, 100.0);
-
-	 if (animationFactor > 180.0)
-		 animationFactor = 0;
-	 animationFactor += 0.01;
-	 model = rotate_y_deg(identity_mat4(), animationFactor);
-
-	glViewport(width / 2, height / 2, width / 2, height / 2);
-	glUniformMatrix4fv(proj_mat_location, 1, GL_FALSE, persp_proj.m);
-	glUniformMatrix4fv(view_mat_location, 1, GL_FALSE, view.m);
-	glUniformMatrix4fv(matrix_location, 1, GL_FALSE, model.m);
-	glDrawArrays(GL_TRIANGLES, 0, teapot_vertex_count);
-
+	
     glutSwapBuffers();
+	*/
 }
 
 

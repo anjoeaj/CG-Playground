@@ -11,20 +11,25 @@
   GLM: yaw function returning degrees is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
   GLM: angle function returning degrees is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
   GLM: angleAxis function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
-d:\msc computer science - ar vr\computer graphics\labs\viewport\cg01 initial (2)\cg01 initial\cg01 initial\teapot.h(2980): warning C4305: 'initializing': truncation from 'double' to 'float'
-d:\msc computer science - ar vr\computer graphics\labs\viewport\cg01 initial (2)\cg01 initial\cg01 initial\teapot.h(5959): warning C4305: 'initializing': truncation from 'double' to 'float'
-d:\msc computer science - ar vr\computer graphics\labs\viewport\cg01 initial (2)\cg01 initial\cg01 initial\teapot.h(8938): warning C4305: 'initializing': truncation from 'double' to 'float'
-d:\msc computer science - ar vr\computer graphics\labs\viewport\cg01 initial (2)\cg01 initial\cg01 initial\main.cpp(35): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-d:\msc computer science - ar vr\computer graphics\labs\viewport\cg01 initial (2)\cg01 initial\cg01 initial\main.cpp(36): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-d:\msc computer science - ar vr\computer graphics\labs\viewport\cg01 initial (2)\cg01 initial\cg01 initial\main.cpp(174): warning C4244: 'argument': conversion from 'float' to 'GLsizeiptr', possible loss of data
-d:\msc computer science - ar vr\computer graphics\labs\viewport\cg01 initial (2)\cg01 initial\cg01 initial\main.cpp(178): warning C4244: 'argument': conversion from 'float' to 'GLsizeiptr', possible loss of data
-d:\msc computer science - ar vr\computer graphics\labs\viewport\cg01 initial (2)\cg01 initial\cg01 initial\main.cpp(216): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\msc computer science - ar vr\computer graphics\labs\viewport\cg01 initial (2)\cg01 initial\cg01 initial\main.cpp(223): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
-d:\msc computer science - ar vr\computer graphics\labs\viewport\cg01 initial (2)\cg01 initial\cg01 initial\main.cpp(227): warning C4305: '+=': truncation from 'double' to 'float'
-d:\msc computer science - ar vr\computer graphics\labs\viewport\cg01 initial (2)\cg01 initial\cg01 initial\main.cpp(241): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
-d:\msc computer science - ar vr\computer graphics\labs\viewport\cg01 initial (2)\cg01 initial\cg01 initial\main.cpp(247): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\msc computer science - ar vr\computer graphics\labs\viewport\cg01 initial (2)\cg01 initial\cg01 initial\main.cpp(254): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
-d:\msc computer science - ar vr\computer graphics\labs\viewport\cg01 initial (2)\cg01 initial\cg01 initial\main.cpp(259): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\msc computer science - ar vr\computer graphics\labs\viewport\cg01 initial (2)\cg01 initial\cg01 initial\main.cpp(263): warning C4305: '+=': truncation from 'double' to 'float'
-d:\msc computer science - ar vr\computer graphics\labs\viewport\cg01 initial (2)\cg01 initial\cg01 initial\main.cpp(270): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
-  CG01 Initial.vcxproj -> D:\MSc Computer Science - AR VR\Computer Graphics\Labs\Viewport\CG01 Initial (2)\CG01 Initial\Debug\CG01 Initial.exe
+d:\msc computer science - ar vr\computer graphics\labs\1.4\cg-playground\cg01 initial\teapot.h(2980): warning C4305: 'initializing': truncation from 'double' to 'float'
+d:\msc computer science - ar vr\computer graphics\labs\1.4\cg-playground\cg01 initial\teapot.h(5959): warning C4305: 'initializing': truncation from 'double' to 'float'
+d:\msc computer science - ar vr\computer graphics\labs\1.4\cg-playground\cg01 initial\teapot.h(8938): warning C4305: 'initializing': truncation from 'double' to 'float'
+d:\msc computer science - ar vr\computer graphics\labs\1.4\cg-playground\cg01 initial\main.cpp(35): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+d:\msc computer science - ar vr\computer graphics\labs\1.4\cg-playground\cg01 initial\main.cpp(36): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+d:\msc computer science - ar vr\computer graphics\labs\1.4\cg-playground\cg01 initial\main.cpp(197): warning C4244: 'argument': conversion from 'float' to 'GLsizeiptr', possible loss of data
+d:\msc computer science - ar vr\computer graphics\labs\1.4\cg-playground\cg01 initial\main.cpp(201): warning C4244: 'argument': conversion from 'float' to 'GLsizeiptr', possible loss of data
+d:\msc computer science - ar vr\computer graphics\labs\1.4\cg-playground\cg01 initial\main.cpp(253): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\msc computer science - ar vr\computer graphics\labs\1.4\cg-playground\cg01 initial\main.cpp(255): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\msc computer science - ar vr\computer graphics\labs\1.4\cg-playground\cg01 initial\main.cpp(256): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\msc computer science - ar vr\computer graphics\labs\1.4\cg-playground\cg01 initial\main.cpp(264): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
+d:\msc computer science - ar vr\computer graphics\labs\1.4\cg-playground\cg01 initial\main.cpp(275): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
+d:\msc computer science - ar vr\computer graphics\labs\1.4\cg-playground\cg01 initial\main.cpp(279): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\msc computer science - ar vr\computer graphics\labs\1.4\cg-playground\cg01 initial\main.cpp(286): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
+d:\msc computer science - ar vr\computer graphics\labs\1.4\cg-playground\cg01 initial\main.cpp(313): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
+d:\msc computer science - ar vr\computer graphics\labs\1.4\cg-playground\cg01 initial\main.cpp(317): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\msc computer science - ar vr\computer graphics\labs\1.4\cg-playground\cg01 initial\main.cpp(324): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
+d:\msc computer science - ar vr\computer graphics\labs\1.4\cg-playground\cg01 initial\main.cpp(335): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
+d:\msc computer science - ar vr\computer graphics\labs\1.4\cg-playground\cg01 initial\main.cpp(353): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
+d:\msc computer science - ar vr\computer graphics\labs\1.4\cg-playground\cg01 initial\main.cpp(364): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
+d:\msc computer science - ar vr\computer graphics\labs\1.4\cg-playground\cg01 initial\main.cpp(375): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
+  CG01 Initial.vcxproj -> D:\MSc Computer Science - AR VR\Computer Graphics\Labs\1.4\CG-Playground\Debug\CG01 Initial.exe
