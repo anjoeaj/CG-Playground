@@ -233,16 +233,16 @@ void display(){
 
 	if (animationFactor >= 360.0)
 		animationFactor = 0;
-	animationFactor += 0.01;
+	animationFactor += 0.08;
 
 	if (flipAnimationFactor >= 40.0 || flipAnimationFactor < -40.0)
 		animToggle = !animToggle;
 
 		
 	if(animToggle)
-		flipAnimationFactor += 0.01;
+		flipAnimationFactor += 0.08;
 	else
-		flipAnimationFactor -= 0.01;
+		flipAnimationFactor -= 0.08;
 	
 	
 
